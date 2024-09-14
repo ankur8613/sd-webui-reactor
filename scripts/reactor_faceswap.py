@@ -245,10 +245,10 @@ class FaceSwapScript(scripts.Script):
             if self.gender_target is None or self.gender_target == "No":
                 self.gender_target = 0
             self.source_faces_index = [
-                int(x) for x in source_faces_index.strip(",").split(",") if x.isnumeric()
+                int(x) for x in source_faces_index.strip().replace(" ", "").strip(",").split(",") if x.isnumeric()
             ]
             self.faces_index = [
-                int(x) for x in faces_index.strip(",").split(",") if x.isnumeric()
+                int(x) for x in faces_index.strip().replace(" ", "").strip(",").split(",") if x.isnumeric()
             ]
             if len(self.source_faces_index) == 0:
                 self.source_faces_index = [0]
