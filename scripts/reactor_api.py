@@ -188,7 +188,7 @@ def reactor_api(_: gr.Blocks, app: FastAPI):
         return {"facemodels": facemodels}
 
     @app.post("/reactor/facemodels")
-    def build_face_model(
+    async def reactor_facemodels_build(
         source_images: list[str] = Body([""],title="Source Face Image List"),
         name: str = Body("",title="Face Model Name"),
         compute_method: int = Body(0,title="Compute Method (Mean, Median, Mode)"),
