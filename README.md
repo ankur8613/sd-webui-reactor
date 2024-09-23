@@ -40,8 +40,15 @@
 
 ## What's new in the latest updates
 
+### 0.7.1 <sub><sup>BETA1
+
+- Allow spaces for face indexes (e.g.: 0, 1, 2)
+- Sorting of face models list alphabetically
+- [FaceModels Build API](./API.md#facemodel-build-api)
+- Fixes and improvements
+
 <details>
-	<summary><a>Click to expand</a></summary>
+	<summary><a>Click to expand more</a></summary>
 
 ### 0.7.0 <sub><sup>BETA2
 

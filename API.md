@@ -83,3 +83,19 @@ A list of available models can be seen by GET:
 * http://127.0.0.1:7860/reactor/models
 * http://127.0.0.1:7860/reactor/upscalers
 * http://127.0.0.1:7860/reactor/facemodels
+
+### FaceModel Buid API
+
+Send POST to http://127.0.0.1:7860/reactor/facemodels with body:
+
+```
+{
+    "source_images": ["data:image/png;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABQAAD/7g...","data:image/png;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABQAAD/7g...","data:image/png;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABQAAD/7g..."],
+    "name": "my_super_model",
+    "compute_method": 0
+}
+```
+
+where:<br>
+"source_images" is a list of base64 encoded images,<br>
+"compute_method" is: 0 - Mean, 1- Median, 2 - Mode
