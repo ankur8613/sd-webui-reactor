@@ -21,20 +21,6 @@ req_file = os.path.join(BASE_PATH, "requirements.txt")
 
 models_dir = os.path.join(models_path, "insightface")
 
-# DEPRECATED:
-# models_dir_old = os.path.join(models_path, "roop")
-# if os.path.exists(models_dir_old):
-#     if not os.listdir(models_dir_old) and (not os.listdir(models_dir) or not os.path.exists(models_dir)):
-#         os.rename(models_dir_old, models_dir)
-#     else:
-#         import shutil
-#         for file in os.listdir(models_dir_old):
-#             shutil.move(os.path.join(models_dir_old, file), os.path.join(models_dir, file))
-#         try:
-#             os.rmdir(models_dir_old)
-#         except Exception as e:
-#             print(f"OSError: {e}")
-            
 model_url = "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/inswapper_128.onnx"
 model_name = os.path.basename(model_url)
 model_path = os.path.join(models_dir, model_name)
@@ -117,12 +103,17 @@ with open(req_file) as file:
                 last_device = "CPU"
         with open(os.path.join(BASE_PATH, "last_device.txt"), "w") as txt:
             txt.write(last_device)
-        if cuda_version is not None and float(cuda_version)>=12: # CU12
-            if not is_installed(ort,"1.17.1",False):
+        if cuda_version is not None:
+            if float(cuda_version)>=12: # CU12.x
+                extra_index_url = "https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/"
+            else: # CU11.8
+                extra_index_url = "https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-11/pypi/simple"
+            if not is_installed(ort,"1.17.1",True):
                 install_count += 1
+                ort = "onnxruntime-gpu==1.17.1"
                 pip_uninstall("onnxruntime", "onnxruntime-gpu")
-                pip_install(ort,"--extra-index-url","https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/")
-        elif not is_installed(ort,"1.16.1",False):
+                pip_install(ort,"--extra-index-url",extra_index_url)
+        elif not is_installed(ort,"1.18.1",False):
             install_count += 1
             pip_install(ort, "-U")
     except Exception as e:
