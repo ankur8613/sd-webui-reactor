@@ -648,7 +648,7 @@ def build_face_model(image: Image.Image, name: str, save_model: bool = True, det
     
     if face_model is not None and len(face_model) > 0:
         if save_model:
-            face_model_path = os.path.join(FACE_MODELS_PATH, name + ".safetensors")
+            face_model_path = os.path.join("/home/ubuntu/user_data/a1111/models/reactor/faces", name + ".safetensors")
             save_face_model(face_model[0],face_model_path)
             logger.status("--Done!--")
             done_msg = f"Face model has been saved to '{face_model_path}'"
@@ -711,7 +711,7 @@ def blend_faces(images_list: List, name: str, compute_method: int = 0, shape_che
             age=faces[0].age
         )
         if blended_face is not None:
-            face_model_path = os.path.join(FACE_MODELS_PATH, name + ".safetensors")
+            face_model_path = os.path.join("/home/ubuntu/user_data/a1111/models/reactor/faces", name + ".safetensors")
             save_face_model(blended_face,face_model_path)
             logger.status("--Done!--")
             done_msg = f"Face model has been saved to '{face_model_path}'"
